@@ -27,13 +27,13 @@ const mesh = new THREE.Mesh(
 )
 scene.add(mesh)
 
-//const camera = new THREE.PerspectiveCamera(
-  //  75, // Field of view in degrees
-    //sizes.width/sizes.height, // aspect ratio
-   // 0.1, // near clipping plane
-   // 100 // far clipping plane
+// const camera = new THREE.PerspectiveCamera(
+//    75, // Field of view in degrees
+//     sizes.width/sizes.height, // aspect ratio
+//    0.1, // near clipping plane
+//    100 // far clipping plane
 
-//)
+// )
 
 //Orthographic camera
 
