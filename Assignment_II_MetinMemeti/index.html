@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>First threejs project</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #instructions {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff;
+            font-size: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 10;
+            pointer-events: none; /* ensures clicks pass through */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="instructions">
+        Click on top of the buildings to see which building it is
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
