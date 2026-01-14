@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-// ================== SCENE & CAMERA ==================
+
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xa9d0a3);
 
@@ -15,13 +15,13 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(-30, 50, -50);
 camera.lookAt(0, 0, 0);
 
-// ================== RENDERER ==================
+
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-// ================== CONTROLS ==================
+
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
@@ -31,7 +31,7 @@ controls.maxDistance = 150;
 controls.maxPolarAngle = Math.PI / 2.1;
 controls.update();
 
-// ================== LIGHTING ==================
+
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
 scene.add(ambientLight);
 
@@ -48,20 +48,20 @@ dirLight.shadow.camera.top = 100;
 dirLight.shadow.camera.bottom = -100;
 scene.add(dirLight);
 
-// ================== TEXTURES ==================
+
 const textureLoader = new THREE.TextureLoader();
 
-// Grass texture
+
 const grassTexture = textureLoader.load('./assets/textures/grass.jpg');
 grassTexture.wrapS = grassTexture.wrapT = THREE.RepeatWrapping;
 grassTexture.repeat.set(10, 10);
 
-// Road texture
+
 const roadTexture = textureLoader.load('./assets/textures/road.jfif');
 roadTexture.wrapS = roadTexture.wrapT = THREE.RepeatWrapping;
 roadTexture.repeat.set(4, 1);
 
-// Building textures
+
 const buildingTexture = textureLoader.load('./assets/textures/building.jpg');
 buildingTexture.wrapS = buildingTexture.wrapT = THREE.RepeatWrapping;
 buildingTexture.repeat.set(1, 1);
@@ -70,7 +70,7 @@ const buildingTexture1 = textureLoader.load('./assets/textures/building1.jpg');
 buildingTexture1.wrapS = buildingTexture1.wrapT = THREE.RepeatWrapping;
 buildingTexture1.repeat.set(1, 1);
 
-// ================== GROUND ==================
+
 const groundGeo = new THREE.PlaneGeometry(100, 100);
 const groundMat = new THREE.MeshLambertMaterial({ map: grassTexture });
 const ground = new THREE.Mesh(groundGeo, groundMat);
@@ -78,7 +78,7 @@ ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
 
-// ================== HELPERS ==================
+
 function createBuilding(x, z, w, h, d, options = {}) {
   const { color = 0xb0b0b0, rotationY = 0, texture = null, name = "Building" } = options;
   const matOptions = { color, shininess: 80, specular: 0x999999 };
@@ -91,13 +91,13 @@ function createBuilding(x, z, w, h, d, options = {}) {
   mesh.position.set(x, h / 2, z);
   mesh.rotation.y = rotationY;
   mesh.castShadow = true;
-  mesh.name = name; // assign the building name
+  mesh.name = name; 
   scene.add(mesh);
 
   return mesh;
 }
 
-// Glass facade helper (adds glass panels to all four sides)
+
 function addGlassFacade(buildingMesh, widthRatio = 0.9, heightRatio = 0.9) {
   const size = new THREE.Vector3();
   buildingMesh.geometry.computeBoundingBox();
@@ -135,7 +135,7 @@ function addGlassFacade(buildingMesh, widthRatio = 0.9, heightRatio = 0.9) {
   }
 }
 
-// ================== TREES ==================
+
 function createTree(x, z) {
   const trunk = new THREE.Mesh(
     new THREE.CylinderGeometry(0.3, 0.3, 2),
@@ -163,13 +163,13 @@ function createRoad(x, z, w, d, rotationY = 0) {
   scene.add(mesh);
 }
 
-// ================== ROADS ==================
+
 createRoad(0, 5, 85, 6, Math.PI / 2);
 createRoad(-10, 3, 65, 6, -Math.PI / 1.1);
 createRoad(-7, -7, 30, 3, -Math.PI / 5.3);
 createRoad(-20, -20, 12, 3, -Math.PI / 2);
 
-// ================== CIRCLE ==================
+
 const circle = new THREE.Mesh(
   new THREE.CircleGeometry(5, 32),
   new THREE.MeshLambertMaterial({ color: 0x555555 })
@@ -178,8 +178,7 @@ circle.rotation.x = -Math.PI / 2;
 circle.position.y = 0.02;
 scene.add(circle);
 
-// ================== BUILDINGS ==================
-// Assign names as requested
+
 const buildingA = createBuilding(-22, -3, 10, 8, 9, { texture: buildingTexture, name: "804" });
 addGlassFacade(buildingA);
 
@@ -192,14 +191,14 @@ addGlassFacade(buildingC, 0.8, 0.8);
 createBuilding(-8, -20, 15, 8, 9, { color: 0xc0c0c0, rotationY: Math.PI / 2, name: "IT Support" });
 createBuilding(23, 0, 2, 3, 100, { color: 0xdedede, name: "Other Building" });
 
-// ================== TREES ==================
+
 createTree(-15, 10);
 createTree(15, 3);
 createTree(20, -15);
 createTree(-8, 20);
 createTree(-35, 3);
 
-// ================== STUDENT GLB MODEL ==================
+
 const loader = new GLTFLoader();
 let student;
 const checkpoints = [
@@ -214,7 +213,7 @@ loader.load(
   './assets/models/student.glb',
   (gltf) => {
     student = gltf.scene;
-    student.scale.set(3, 3, 3); // increased size
+    student.scale.set(3, 3, 3); 
     student.position.copy(checkpoints[0]);
     scene.add(student);
   },
@@ -222,7 +221,7 @@ loader.load(
   (error) => console.error('Error loading student model:', error)
 );
 
-// ================== RAYCASTER FOR INTERACTION ==================
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
@@ -240,14 +239,14 @@ window.addEventListener("click", (event) => {
   }
 });
 
-// ================== RESIZE ==================
+
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// ================== ANIMATION ==================
+
 function animate() {
   requestAnimationFrame(animate);
 
